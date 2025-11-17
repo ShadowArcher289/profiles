@@ -56,8 +56,9 @@ def _ldap_is_member_of_directorship(account, directorship):
 def ldap_get_member(username):
     try:
         return _ldap.get_member(username, uid=True)
-    except KeyError as kerr:
-        raise BadQueryError("invalid user") from kerr
+    except KeyError: # as kerr:
+        # raise BadQueryError("invalid user") from kerr
+        raise FileNotFoundError("invalid user")
 
 
 @lru_cache(maxsize=1024)
